@@ -1,5 +1,5 @@
 # Use CUDA environment and install basic dependencies
-FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04
+FROM nvidia/cuda:12.6.3-runtime-ubuntu22.04
 
 RUN apt-get update && apt-get install -y \
     python3.10 python3.10-dev python3-pip \
@@ -17,6 +17,7 @@ RUN useradd -m -s /bin/bash appuser
 # Configure pip to use faster mirror and upgrade
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install --upgrade pip setuptools || echo "Warning: pip upgrade failed"
+ENV PIP_NO_CACHE_DIR=1
 
 # Install PyTorch (updated to version 2.6.0)
 ARG CUDA_VERSION=126
